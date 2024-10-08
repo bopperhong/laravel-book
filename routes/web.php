@@ -18,9 +18,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('role:seller')->group(function () {
+Route::middleware(['auth','role:seller'])->group(function () {
     Route::get('/view_books', [BookController::class, 'index'])
-    ->name('view_books');
+    ->name('books.index');
+    Route::get('/create_books', [BookController::class, 'create'])
+    ->name('books.create');
+    Route::post('/create_books', [BookController::class, 'store'])
+    ->name('books.store');
 });
 
 require __DIR__.'/auth.php';

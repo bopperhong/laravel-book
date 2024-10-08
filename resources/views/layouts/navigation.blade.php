@@ -19,7 +19,7 @@
 
                 @hasrole('seller')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('view_books')" :active="request()->routeIs('view_books')">
+                    <x-nav-link :href="route('books.index')" :active="request()->routeIs('view_books')">
                         {{ __('View Books') }}
                     </x-nav-link>
                 </div>

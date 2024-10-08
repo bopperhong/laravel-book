@@ -11,7 +11,7 @@ class Book extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
-    protected $fillable = ['title', 'description', 'price', 'category_id'];
+    protected $fillable = ['title', 'description', 'price', 'category_id', 'cover_image'];
 
     public function category(){
         return $this->belongsTo(Category::class);
