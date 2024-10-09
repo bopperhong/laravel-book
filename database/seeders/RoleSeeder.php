@@ -26,7 +26,14 @@ class RoleSeeder extends Seeder
         $sellerPermissions = [
             'manage books',
             'view orders',
-            'update profiles',
+        ];
+
+        $userRole = Role::create([
+            'name' => 'user'
+        ]);
+        $userPermissions = [
+            'view books',
+            'wishlist',
         ];
 
         foreach ($sellerPermissions as $permissionName){
@@ -37,6 +44,11 @@ class RoleSeeder extends Seeder
         foreach ($adminPermissions as $permissionName){
             $permission = Permission::create(['name' => $permissionName]);
             $adminRole->givePermissionTo($permission);
+        }
+
+        foreach ($userPermissions as $permissionName){
+            $permission = Permission::create(['name' => $permissionName]);
+            $userRole->givePermissionTo($permission);
         }
     }
 }

@@ -28,12 +28,13 @@ class ListBooks extends Component implements HasForms, HasTable
         return $table
             ->query(Book::with('category'))
             ->columns([
+                ImageColumn::make('cover_image'),
                 TextColumn::make('title'),
-                TextColumn::make('description'),
-                TextColumn::make('price'),
                 TextColumn::make('category.name')
                 ->label('Category'),
-                ImageColumn::make('cover_image'),
+                TextColumn::make('description'),
+                TextColumn::make('price'),
+                TextColumn::make('seller'),
             ]);
     }
 }

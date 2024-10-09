@@ -31,6 +31,7 @@ class BookController extends Controller
         $book->description = $request->description;
         $book->category_id = $request->category_id;
         $book->price = $request->price;
+        $book->seller = auth()->user()->name;
         $book->save();
 
         if ($request->hasFile('cover_image')) {

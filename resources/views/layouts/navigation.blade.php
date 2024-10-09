@@ -17,13 +17,29 @@
                     </x-nav-link>
                 </div>
 
-                @hasrole('seller')
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('books.index')" :active="request()->routeIs('view_books')">
-                        {{ __('View Books') }}
-                    </x-nav-link>
-                </div>
-                @endhasrole
+                @if(Auth::user()->verified)
+                    @hasrole('admin')
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                            {{ __('Users') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+                            {{ __('Categories') }}
+                        </x-nav-link>
+                    </div>
+                    @endhasrole
+
+                    @hasanyrole('user|seller')  
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('books.index')" :active="request()->routeIs('books.index')">
+                            {{ __('Books') }}
+                        </x-nav-link>
+                    </div>
+                    @endhasanyrole
+                @endif
+
             </div>
 
             <!-- Settings Dropdown -->
@@ -58,6 +74,15 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+
+                    <x-dropdown-link :href="route('logout')"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                        {{ __('Log Out') }}
+                    </x-dropdown-link>
+                </form>
             </div>
 
             <!-- Hamburger -->

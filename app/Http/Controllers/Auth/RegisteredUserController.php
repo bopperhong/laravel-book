@@ -34,15 +34,21 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
+        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'verified' => 0,
         ]);
+        if($request->role_id == 1){
+            $user->assignRole('seller');
+        }
+        else if ($request->role_id == 2){
+            $user->verified = 1;
+            $user->assignRole('user');
+        }
 
-        $user->assignRole('seller');
 
         event(new Registered($user));
 
