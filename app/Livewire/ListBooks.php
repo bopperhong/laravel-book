@@ -10,9 +10,11 @@ use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Illuminate\Contracts\View\View;
 use App\Models\Book;
 use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 
 class ListBooks extends Component implements HasForms, HasTable
 {
@@ -28,7 +30,12 @@ class ListBooks extends Component implements HasForms, HasTable
         return $table
             ->query(Book::with('category'))
             ->columns([
-                ImageColumn::make('cover_image'),
+                SpatieMediaLibraryImageColumn::make('cover_image')
+                ->collection('cover_images')
+                ->label('Cover Image')
+                ->square()
+                ->visibility('public')
+                ,
                 TextColumn::make('title'),
                 TextColumn::make('category.name')
                 ->label('Category'),

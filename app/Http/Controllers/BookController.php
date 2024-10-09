@@ -36,8 +36,9 @@ class BookController extends Controller
 
         if ($request->hasFile('cover_image')) {
             $media = $book->addMedia($request->file('cover_image'))->toMediaCollection('cover_images');
-            
-            $book->cover_image = $media->getPath();
+
+            $relativePath = str_replace(storage_path('app/public/'), 'storage/', $media->getPath());
+            $book->cover_image = $relativePath;
             $book->save();
         }
 

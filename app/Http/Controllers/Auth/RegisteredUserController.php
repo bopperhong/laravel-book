@@ -45,7 +45,7 @@ class RegisteredUserController extends Controller
             $user->assignRole('seller');
         }
         else if ($request->role_id == 2){
-            $user->verified = 1;
+            $user->verified = true;
             $user->assignRole('user');
         }
 
